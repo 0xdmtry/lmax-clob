@@ -1,0 +1,27 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    environment: local-lab
+
+scrape_configs:
+
+  - job_name: "clob-api"
+    static_configs:
+      - targets: [ "host.docker.internal:9000" ]
+    scrape_interval: 5s
+    params: { }
+    fallback_scrape_protocol: PrometheusText0.0.4
+
+  - job_name: "node-exporter"
+    static_configs:
+      - targets: [ "node-exporter:9100" ]
+
+  - job_name: "redpanda"
+    static_configs:
+      - targets: [ "redpanda:9644" ]
+    metrics_path: /metrics
+
+  - job_name: "prometheus"
+    static_configs:
+      - targets: [ "localhost:9090" ]

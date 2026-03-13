@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clob-config
+  namespace: default
+data:
+  KAFKA_BROKERS: "redpanda:9092"
+  DATABASE_URL: "postgres://clob:clob@postgres:5432/clob"
+  REDIS_URL: "redis://redis:6379"
+  HTTP_BIND: "0.0.0.0:8000"
+  OTLP_ENDPOINT: "http://jaeger:4317"
+  YELLOWSTONE_ENDPOINT: "http://yellowstone-mock:10000"
+  RUST_LOG: "info"
+  ENGINE_CHANNEL_DEPTH: "8192"
+  SNAPSHOT_EVERY: "10000"
+  KAFKA_LINGER_MS: "50"
+  KAFKA_BATCH_NUM_MESSAGES: "5000"
+  DB_BATCH_SIZE: "500"
+  DB_FLUSH_MS: "50"

@@ -1,0 +1,53 @@
+[package]
+name = "clob-engine"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "clob_engine"
+
+[features]
+dhat-heap = ["dep:dhat"]
+mimalloc = ["dep:mimalloc"]
+jemalloc = ["dep:tikv-jemallocator"]
+
+[dependencies]
+rust_decimal = { workspace = true, features = ["serde-bincode"] }
+uuid = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+slab = "0.4"
+postcard = { workspace = true }
+mimalloc = { version = "0.1", default-features = false, optional = true }
+tikv-jemallocator = { version = "0.6", optional = true }
+dhat = { version = "0.3", optional = true }
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+rust_decimal_macros = "1"
+
+[[bench]]
+name = "order_matching"
+harness = false
+path = "benches/order_matching.rs"
+
+[[bench]]
+name = "orderbook_ops"
+harness = false
+path = "benches/orderbook_ops.rs"
+
+[[bench]]
+name = "serialization"
+harness = false
+path = "benches/serialization.rs"
+
+[[bench]]
+name = "alloc_profile"
+harness = false
+path = "benches/alloc_profile.rs"
+required-features = ["dhat-heap"]
+
+[[bench]]
+name = "btreemap_vs_vec"
+harness = false
+path = "benches/btreemap_vs_vec.rs"

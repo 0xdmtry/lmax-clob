@@ -1,0 +1,113 @@
+{
+  "title": "CLOB Overview",
+  "uid": "clob-overview",
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "refresh": "5s",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Fill Rate (fills/sec)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "rate(fills_total[1m])",
+          "legendFormat": "fills/sec",
+          "datasource": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Matching Latency p50 (ns)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "matching_latency_ns{quantile=\"0.5\"}",
+          "legendFormat": "p50",
+          "datasource": null
+        },
+        {
+          "expr": "matching_latency_ns{quantile=\"0.95\"}",
+          "legendFormat": "p95",
+          "datasource": null
+        },
+        {
+          "expr": "matching_latency_ns{quantile=\"0.99\"}",
+          "legendFormat": "p99",
+          "datasource": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Total Fills",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "expr": "fills_total",
+          "legendFormat": "total",
+          "datasource": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "WebSocket Clients",
+      "type": "stat",
+      "gridPos": {
+        "x": 6,
+        "y": 8,
+        "w": 6,
+        "h": 4
+      },
+      "targets": [
+        {
+          "expr": "ws_client_count",
+          "legendFormat": "clients",
+          "datasource": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "HTTP Request Latency p99 (ns)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "http_request_duration_ns{quantile=\"0.99\"}",
+          "legendFormat": "{{method}} {{path}} {{status}}",
+          "datasource": null
+        }
+      ]
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  }
+}

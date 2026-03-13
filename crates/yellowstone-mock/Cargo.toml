@@ -1,0 +1,19 @@
+[package]
+name = "yellowstone-mock"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "yellowstone-mock"
+path = "src/main.rs"
+
+[dependencies]
+tonic = { workspace = true }
+tokio = { workspace = true }
+rand = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+yellowstone-grpc-proto = { version = "12.1.0", default-features = false, features = ["tonic"] }
+prost = { workspace = true }
+tokio-stream = { version = "0.1" }
+futures = { workspace = true }

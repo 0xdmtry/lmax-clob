@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: clob
+  namespace: default
+spec:
+  serviceName: clob-headless
+  replicas: 2
+  selector:
+    matchLabels:
+      app: clob
+  template:
+    metadata:
+      labels:
+        app: clob
+        role: follower
+    spec:
+      serviceAccountName: clob-sa
+      containers:
+        - name: clob-api
+          image: clob-api:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+              name: http
+            - containerPort: 9000
+              name: metrics
+          envFrom:
+            - configMapRef:
+                name: clob-config
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: K8S_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 5
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"

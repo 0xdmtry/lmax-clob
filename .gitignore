@@ -1,0 +1,713 @@
+# =============================================================================
+# OPERATING SYSTEM FILES
+# =============================================================================
+.DS_Store
+.DS_STORE
+**/.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# =============================================================================
+# IDE / EDITOR FILES
+# =============================================================================
+# Visual Studio Code
+.vscode/
+/.vscode/
+.vscode-test
+
+# IntelliJ IDEA
+.idea/
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/**/aws.xml
+.idea/**/contentModel.xml
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea/**/mongoSettings.xml
+.idea/artifacts
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/httpRequests
+.idea/caches/build_file_checksums.ser
+.idea/replstate.xml
+.idea_modules/
+*.ipr
+*.iws
+*.iml
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# =============================================================================
+# NODE.JS / JAVASCRIPT
+# =============================================================================
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+.pnp.*
+jspm_packages/
+bower_components/
+web_modules/
+.yarn/install-state.gz
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn-integrity
+yarn.lock
+
+# Build outputs
+/build
+/dist
+dist/
+dist/**/*
+/out
+out/
+build/
+build/Release
+public/css/main.css
+
+# Next.js
+/.next/
+/.next
+.next
+next-env.d.ts
+
+# Nuxt.js
+.nuxt
+
+# Gatsby
+.cache/
+
+# Parcel
+.cache
+.parcel-cache
+
+# Vuepress
+.vuepress/dist
+
+# Testing
+/coverage
+coverage/
+*.lcov
+.nyc_output
+lib-cov
+
+# Logs
+*.log
+*.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional caches
+.npm
+.eslintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.node_repl_history
+
+# Serverless
+.serverless/
+
+# FuseBox
+.fusebox/
+
+# DynamoDB Local
+.dynamodb/
+
+# TernJS
+.tern-port
+
+# Grunt
+.grunt
+
+# Package files
+*.tgz
+*.tar
+*.tar.gz
+*.tar.xz
+*.tar.lzma
+*.tar.bz2
+*.tar.Z
+
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# node-waf configuration
+.lock-wscript
+
+# Turbo
+.turbo
+
+# Version managers
+.nvmrc
+.node-version
+
+# =============================================================================
+# PYTHON
+# =============================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Distribution / packaging
+.Python
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask
+instance/
+.webassets-cache
+
+# Scrapy
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+.ENV/
+.env/
+env.bak/
+venv.bak/
+
+# =============================================================================
+# RUST
+# =============================================================================
+# Compiled files
+/target
+/target/
+target/**/*
+**/*.rs.bk
+*.rmeta
+**/*.rlib
+
+# Executables
+*.exe
+*.exe~
+**/*.exe
+**/*.dll
+**/*.so
+**/*.dylib
+
+# Cargo
+Cargo.lock
+
+# wasm-pack
+/pkg/
+
+# =============================================================================
+# GO
+# =============================================================================
+*.test
+
+# Build output
+/bin/
+/build/
+/dist/
+/tmp/
+bckp
+backup
+
+# Dependencies
+/vendor/
+vendor/
+
+# Module files
+go.work
+/go.sum
+
+# Dependency management
+Gopkg.lock
+Gopkg.toml
+
+# Air (live reload)
+.air.toml
+.air/
+
+# =============================================================================
+# ENVIRONMENT VARIABLES
+# =============================================================================
+.env
+.env*
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# =============================================================================
+# DATABASES & DATA
+# =============================================================================
+*.sqlite3
+*.db
+*.pkl
+db-data/
+.db-data/
+.dbdata
+.dbdata/
+/bridge-builder/.dbdata/
+*.csv
+*.dat
+*.out
+*.gz
+
+# =============================================================================
+# CLOUD & DEPLOYMENT
+# =============================================================================
+# Vercel
+.vercel
+
+# Terraform
+.terraform
+*.tfstate
+*.tfstate.backup
+
+# Docker
+docker-compose.override.yml
+
+# =============================================================================
+# COMPILED & BINARY FILES
+# =============================================================================
+*.o
+*.cmo
+*.cmi
+*.cmx
+*.cmxa
+*.cmxs
+*.cma
+*.dll
+*.so
+*.dylib
+*.pem
+
+# =============================================================================
+# TESTING & COVERAGE
+# =============================================================================
+/coverage/
+/htmlcov/
+/lcov.info
+
+# =============================================================================
+# TYPESCRIPT
+# =============================================================================
+*.tsbuildinfo
+
+# =============================================================================
+# REACT DEVELOPMENT
+# =============================================================================
+scripts/flow/*/.flowconfig
+.flowconfig
+*~
+_SpecRunner.html
+__benchmarks__
+remote-repo/
+.module-cache
+fixtures/dom/public/react-dom.js
+fixtures/dom/public/react.js
+test/the-files-to-test.generated.js
+chrome-user-data
+
+packages/react-devtools-core/dist
+packages/react-devtools-extensions/chrome/build
+packages/react-devtools-extensions/chrome/*.crx
+packages/react-devtools-extensions/chrome/*.pem
+packages/react-devtools-extensions/firefox/build
+packages/react-devtools-extensions/firefox/*.xpi
+packages/react-devtools-extensions/firefox/*.pem
+packages/react-devtools-extensions/shared/build
+packages/react-devtools-extensions/.tempUserDataDir
+packages/react-devtools-inline/dist
+packages/react-devtools-shell/dist
+packages/react-devtools-timeline/dist
+
+# =============================================================================
+# LOGS & TEMPORARY FILES
+# =============================================================================
+logs/
+
+# Backup and temporary files
+*.tmp
+*.old
+*.bak
+temp/
+tmp/
+backup/
+bckp/
+.tmp
+public/
+
+# GDB history
+.gdb_history
+
+# =============================================================================
+# LARGE FILES & TEST DATA
+# =============================================================================
+test-ledger/
+test-ledger/*
+test-ledger/rocksdb/
+test-ledger/rocksdb/*
+results/
+assets/tmp/
+recordings/
+output.ulaw
+
+# =============================================================================
+# AUTHENTICATION & SECRETS
+# =============================================================================
+google-auth.json
+
+# =============================================================================
+# DEVELOPMENT CONTAINERS
+# =============================================================================
+.devcontainer/
+
+# =============================================================================
+# HARDHAT
+# =============================================================================
+node_modules
+
+# Hardhat files
+/cache
+/artifacts
+
+# TypeChain files
+/typechain
+/typechain-types
+
+# solidity-coverage files
+/coverage.json
+yarn-error.log
+
+# Hardhat
+artifacts
+cache
+typechain-types
+coverage
+coverage.json
+
+# Our custom generated files
+deployment-info.json
+
+# Hardhat Ignition default folder for deployments against a local node
+ignition/deployments/chain-31337
+
+# =============================================================================
+# FOUNDRY
+# =============================================================================
+
+# Compiler files
+cache/
+
+# Ignores development broadcast logs
+!/broadcast
+/broadcast/*/31337/
+/broadcast/**/dry-run/
+
+src/Vm.sol linguist-generated
+
+
+# Logs
+logs
+
+# Runtime data
+allFiredEvents
+scTopics
+
+# Coverage directory used by tools like istanbul
+coverageEnv
+
+# Debug log from npm
+npm-debug.log
+
+# IntelliJ IDE
+.idea
+
+# docs artifacts
+docs/modules/api
+build/site
+
+# only used to package @openzeppelin/contracts
+contracts/build/
+contracts/README.md
+
+# temporary artifact from solidity-coverage
+.coverage_artifacts
+.coverage_cache
+.coverage_contracts
+
+# hardat-exposed
+contracts-exposed
+
+# Foundry
+/cache_forge
+
+# Certora
+.certora*
+.last_confs
+certora_*
+.zip-output-url.txt
+
+# =============================================================================
+# PLAYWRIGHT
+# =============================================================================
+
+test-results
+test-results/
+./test-results
+./test-results/
+/test-results
+/test-results/
+playwright-report/
+playwright-report
+./playwright-report/
+./playwright-report
+/playwright-report/
+/playwright-report
+blob-report/
+blob-report
+./blob-report/
+./blob-report
+/blob-report/
+/blob-report
+playwright/.cache/
+playwright/.auth/
+./playwright/.cache/
+./playwright/.auth/
+/playwright/.cache/
+/playwright/.auth/
+
+# =============================================================================
+# PLAYWRIGHT
+# =============================================================================
+**/*.md
+!/README.md
+
+
+# =============================================================================
+# SOLIDJS
+# =============================================================================
+dist
+.wrangler
+.output
+.netlify
+.vinxi
+app.config.timestamp_*.js
+
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+*.launch
+.settings/
+
+# Temp
+gitignore
+
+# If using RLS/rust-analyzer
+**/rls
+
+.vscode
+**/npm-debug.log
+
+
+# Bower dependency directory
+bower_components
+
+.env.test
+
+out
+
+# User-specific stuff:
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+
+# Sensitive or high-churn files:
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+
+# Gradle:
+.idea/gradle.xml
+.idea/libraries
+
+# Mongo Explorer plugin:
+.idea/mongoSettings.xml
+
+## Plugin-specific files:
+
+# IntelliJ
+/out/
+
+### Intellij Patch ###
+modules.xml
+
+
+# CMake
+cmake-build-*/
+
+results
+assets/tmp
+tmp
+.db-data
+
+config/
+
+
+# Logs
+*.txt
+
+# Anchor
+.anchor
+.anchor/
+/.anchor
+/.anchor/
+
+test-ledger
+/test-ledger
+/test-ledger/
+./test-ledger
+./test-ledger/

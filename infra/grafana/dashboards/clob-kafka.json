@@ -1,0 +1,67 @@
+{
+  "title": "Kafka",
+  "uid": "clob-kafka",
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "refresh": "5s",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Consumer Lag by Partition",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "kafka_consumer_lag",
+          "legendFormat": "partition {{partition}}",
+          "datasource": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Total Consumer Lag",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 8,
+        "h": 4
+      },
+      "targets": [
+        {
+          "expr": "sum(kafka_consumer_lag)",
+          "legendFormat": "total lag",
+          "datasource": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Redpanda Topic Throughput",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 8,
+        "y": 8,
+        "w": 16,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "rate(vectorized_kafka_request_bytes_total[1m])",
+          "legendFormat": "bytes/sec",
+          "datasource": null
+        }
+      ]
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  }
+}

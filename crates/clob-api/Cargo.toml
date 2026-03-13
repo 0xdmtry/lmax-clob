@@ -1,0 +1,48 @@
+[package]
+name = "clob-api"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "clob-api"
+path = "src/main.rs"
+
+[dependencies]
+tonic = { workspace = true }
+prost = { workspace = true }
+yellowstone-grpc-proto = { version = "12.1.0", default-features = false, features = ["tonic"] }
+futures = { workspace = true }
+clob-engine = { path = "../clob-engine" }
+tokio = { workspace = true }
+tokio-util = { version = "0.7", features = ["rt"] }
+actix-web = "4"
+actix-ws = "0.3"
+sqlx = { version = "0.7", features = ["postgres", "runtime-tokio", "runtime-tokio-native-tls", "tls-rustls", "uuid", "rust_decimal", "migrate", "chrono"] }
+redis = { version = "0.24", features = ["tokio-comp"] }
+rdkafka = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+postcard = { workspace = true }
+config = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+console-subscriber = { version = "0.2", optional = true }
+metrics = "0.22"
+metrics-exporter-prometheus = "0.13"
+uuid = { workspace = true }
+crossbeam-channel = { workspace = true }
+rust_decimal = { workspace = true, features = ["serde-bincode"] }
+kube = { version = "0.91", features = ["runtime", "client"] }
+k8s-openapi = { version = "0.22", features = ["v1_29"] }
+
+
+opentelemetry = { version = "0.21" }
+opentelemetry_sdk = { version = "0.21", features = ["trace", "rt-tokio"] }
+opentelemetry-otlp = { version = "0.14", features = ["tonic", "trace"] }
+tracing-opentelemetry = { version = "0.22" }
+chrono = "0.4.44"
+
+[features]
+console = ["console-subscriber"]

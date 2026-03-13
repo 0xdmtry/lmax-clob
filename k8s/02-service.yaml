@@ -1,0 +1,33 @@
+# ClusterIP service — routes only to the elected leader pod
+apiVersion: v1
+kind: Service
+metadata:
+  name: clob
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: clob
+    role: leader
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+    - name: metrics
+      port: 9000
+      targetPort: 9000
+---
+# Headless service for stable DNS names (clob-0.clob-headless, clob-1.clob-headless)
+apiVersion: v1
+kind: Service
+metadata:
+  name: clob-headless
+  namespace: default
+spec:
+  clusterIP: None
+  selector:
+    app: clob
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000

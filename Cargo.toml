@@ -1,0 +1,40 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/clob-engine",
+    "crates/clob-api",
+    "crates/yellowstone-mock",
+]
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1" }
+thiserror = { version = "1" }
+anyhow = { version = "1" }
+tracing = { version = "0.1" }
+uuid = { version = "1", features = ["v4", "serde"] }
+rust_decimal = { version = "1", features = ["serde-bincode"] }
+rdkafka = { version = "0.36", features = ["cmake-build"] }
+tonic = { version = "0.14" }
+prost = { version = "0.14" }
+config = { version = "0.14" }
+rand = { version = "0.8" }
+crossbeam-channel = { version = "0.5" }
+postcard = { version = "1", features = ["alloc"] }
+futures = "0.3"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+debug = 1
+
+[profile.bench]
+inherits = "release"
+debug = 2
+
+[profile.profiling]
+inherits = "release"
+debug = 2
+strip = "none"

@@ -1,0 +1,77 @@
+{
+  "title": "Postgres",
+  "uid": "clob-postgres",
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "refresh": "10s",
+  "panels": [
+    {
+      "id": 1,
+      "title": "DB Write Batch Size",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "db_write_batch_size{quantile=\"0.5\"}",
+          "legendFormat": "p50",
+          "datasource": null
+        },
+        {
+          "expr": "db_write_batch_size{quantile=\"0.99\"}",
+          "legendFormat": "p99",
+          "datasource": null
+        },
+        {
+          "expr": "db_write_batch_size{quantile=\"1\"}",
+          "legendFormat": "max",
+          "datasource": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "DB Writes per Second",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "rate(db_write_batch_size_count[1m])",
+          "legendFormat": "batches/sec",
+          "datasource": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Fills Persisted Total",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 8,
+        "h": 4
+      },
+      "targets": [
+        {
+          "expr": "db_write_batch_size_sum",
+          "legendFormat": "total rows",
+          "datasource": null
+        }
+      ]
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  }
+}

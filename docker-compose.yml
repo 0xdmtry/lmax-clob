@@ -1,0 +1,206 @@
+networks:
+  clob-net:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  redis-data:
+  redpanda-data:
+  prometheus-data:
+  grafana-data:
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: clob-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-clob}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-clob}
+      POSTGRES_DB: ${POSTGRES_DB:-clob}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - clob-net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-clob}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: clob-redis
+    command: >
+      redis-server
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+      --save ""
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - clob-net
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redpanda:
+    image: redpandadata/redpanda:latest
+    container_name: clob-redpanda
+    command:
+      - redpanda
+      - start
+      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr internal://redpanda:9092,external://localhost:19092
+      - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:18082
+      - --advertise-pandaproxy-addr internal://redpanda:8082,external://localhost:18082
+      - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:18081
+      - --rpc-addr redpanda:33145
+      - --advertise-rpc-addr redpanda:33145
+      - --mode dev-container
+      - --smp 1
+      - --default-log-level=warn
+    volumes:
+      - redpanda-data:/var/lib/redpanda/data
+    ports:
+      - "19092:19092"
+      - "18082:18082"
+      - "18081:18081"
+      - "9644:9644"
+    networks:
+      - clob-net
+    healthcheck:
+      test: [ "CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true'" ]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  redpanda-console:
+    image: redpandadata/console:latest
+    container_name: clob-redpanda-console
+    volumes:
+      - ./infra/redpanda/console-config.yaml:/etc/redpanda-console/config.yaml:ro
+    environment:
+      CONFIG_FILEPATH: /etc/redpanda-console/config.yaml
+    ports:
+      - "8080:8080"
+    networks:
+      - clob-net
+    depends_on:
+      redpanda:
+        condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: clob-prometheus
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=7d"
+      - "--web.enable-lifecycle"
+    ports:
+      - "9091:9090"
+    networks:
+      - clob-net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: clob-grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_FEATURE_TOGGLES_ENABLE: traceqlEditor
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./infra/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "3000:3000"
+    networks:
+      - clob-net
+    depends_on:
+      - prometheus
+      - jaeger
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: clob-jaeger
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - clob-net
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: clob-node-exporter
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.rootfs=/rootfs"
+      - "--path.sysfs=/host/sys"
+      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    ports:
+      - "9100:9100"
+    networks:
+      - clob-net
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: clob-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@clob.dev}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "5050:80"
+    networks:
+      - clob-net
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  k6:
+    image: grafana/k6:latest
+    container_name: clob-k6
+    volumes:
+      - ./load/k6/scripts:/scripts:ro
+    environment:
+      K6_PROMETHEUS_RW_SERVER_URL: http://prometheus:9090/api/v1/write
+      BASE_URL: http://clob-api:8000
+    networks:
+      - clob-net
+    profiles:
+      - load
+
+  yellowstone-mock:
+    build:
+      context: .
+      dockerfile: crates/yellowstone-mock/Dockerfile
+    container_name: clob-yellowstone-mock
+    environment:
+      STREAM_RATE_PER_SECOND: ${STREAM_RATE:-1000}
+      PAYLOAD_SIZE_BYTES: ${PAYLOAD_SIZE:-512}
+      SIMULATE_DISCONNECTS: ${SIMULATE_DISCONNECTS:-false}
+      DISCONNECT_INTERVAL_S: ${DISCONNECT_INTERVAL:-30}
+      RUST_LOG: ${RUST_LOG:-info}
+    ports:
+      - "10000:10000"
+    networks:
+      - clob-net

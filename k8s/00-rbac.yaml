@@ -1,0 +1,33 @@
+# RBAC Role + RoleBinding for coordination.k8s.io/leases needed later
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: clob-sa
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: clob-leader-election
+  namespace: default
+rules:
+  - apiGroups: [ "coordination.k8s.io" ]
+    resources: [ "leases" ]
+    verbs: [ "get", "create", "update", "patch" ]
+  - apiGroups: [ "" ]
+    resources: [ "pods" ]
+    verbs: [ "get", "patch" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: clob-leader-election
+  namespace: default
+subjects:
+  - kind: ServiceAccount
+    name: clob-sa
+    namespace: default
+roleRef:
+  kind: Role
+  name: clob-leader-election
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,87 @@
+{
+  "title": "Matching Engine",
+  "uid": "clob-matching",
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "refresh": "5s",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Matching Latency Quantiles (ns)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "matching_latency_ns{quantile=\"0\"}",
+          "legendFormat": "min",
+          "datasource": null
+        },
+        {
+          "expr": "matching_latency_ns{quantile=\"0.5\"}",
+          "legendFormat": "p50",
+          "datasource": null
+        },
+        {
+          "expr": "matching_latency_ns{quantile=\"0.99\"}",
+          "legendFormat": "p99",
+          "datasource": null
+        },
+        {
+          "expr": "matching_latency_ns{quantile=\"1\"}",
+          "legendFormat": "max",
+          "datasource": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Fills per Second",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "rate(fills_total[30s])",
+          "legendFormat": "fills/sec",
+          "datasource": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Snapshot Size (bytes)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "snapshot_size_bytes{quantile=\"0.99\"}",
+          "legendFormat": "p99",
+          "datasource": null
+        },
+        {
+          "expr": "snapshot_size_bytes{quantile=\"1\"}",
+          "legendFormat": "max",
+          "datasource": null
+        }
+      ]
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  }
+}
