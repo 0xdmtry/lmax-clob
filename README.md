@@ -5,6 +5,13 @@ Ingests a simulated Solana transaction stream of [Triton Yellowstone gRPC](https
 matches orders, persists fills, and exposes
 a REST + WebSocket API — with full observability via Prometheus, Grafana, and Jaeger.
 
+### Related Projects:
+
+- [Solana CLOB: 3.6M orders/sec](https://github.com/0xdmtry/sol-clob)
+- [Solana Indexer with Kafka and ClickHouse](https://github.com/0xdmtry/dex-indexer)
+- [Eigen Graph Streamer with Full Infrastructure Stack](https://github.com/0xdmtry/eigen-graph)
+- [ClickHouse Indexer Infrastructure with Kubernetes](https://github.com/0xdmtry/indexer-with-clickhouse)
+
 ---
 
 ## Table of Contents
